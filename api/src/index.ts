@@ -1,11 +1,13 @@
-import express from "express";
+import express, { json } from "express";
 import productRouter from "./routes/products/product.route";
 
 const app = express();
-const port = 8000;
+
+app.use(express.json({ limit: "16kb" }));
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/products", productRouter);
 
-app.listen(port, () => {
-  console.log("Server is running on port", port);
+app.listen(process.env.PORT, () => {
+  console.log("Server is running on port", process.env.PORT);
 });
